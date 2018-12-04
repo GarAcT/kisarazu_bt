@@ -1,0 +1,3 @@
+project=kisarazu_bt
+test=rspec
+template=erb
