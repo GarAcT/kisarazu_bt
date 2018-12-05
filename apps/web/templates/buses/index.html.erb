@@ -1,0 +1,17 @@
+<h2>All bus info</h2>
+
+<% if buses.any? %>
+  <div id="buses">
+    <% buses.each do |bus| %>
+      <div class="bus">
+        <h2><%= bus.busid %></h2>
+        <p><%= bus.rosenid %></p>
+        <p><%= bus.binid %></p>
+        <p><%= bus.isRunning %></p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="placeholder">There are no bus info yet.</p>
+<% end %>
+
