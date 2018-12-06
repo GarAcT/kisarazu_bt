@@ -9,6 +9,7 @@ module Web
         include Web::Action
 
         def call(params)
+          BusRepository.new.clear
           #For num in 1..11
           params = URI.encode_www_form({busid: '3'})
           uri = URI.parse("http://tutujibus.com/busLookup.php?#{params}")
