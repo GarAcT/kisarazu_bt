@@ -15,8 +15,8 @@ RSpec.describe Web::Views::Buses::Index, type: :view do
   end
 
   context 'when there are buses' do
-    let(:bus1) { Bus.new(isRunning: true, datetime: '123', busid: 3, rosenid: 2345, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false) }
-    let(:bus2) { Bus.new(isRunning: true, datetime: '123', busid: 4, rosenid: 6789, binid: 23, latitude: 4.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false) }
+    let(:bus1) { Bus.new(isRunning: true, datetime: '123', busid: 3, rosenid: 2345, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isdelay: false) }
+    let(:bus2) { Bus.new(isRunning: true, datetime: '123', busid: 4, rosenid: 6789, binid: 23, latitude: 4.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isdelay: false) }
     let(:exposures) { Hash[buses: [bus1, bus2]] }
 
     it 'lists them all' do

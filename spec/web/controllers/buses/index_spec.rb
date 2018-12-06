@@ -6,7 +6,7 @@ RSpec.describe Web::Controllers::Buses::Index, type: :action do
   before do
     repository.clear
 
-    @bus = repository.create(isRunning: true, datetime: '123', busid: 3, rosenid: 2345, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false)
+    @bus = repository.create(isRunning: true, datetime: '123', busid: 3, rosenid: 2345, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isdelay: false)
   end
 
   it 'is successful' do

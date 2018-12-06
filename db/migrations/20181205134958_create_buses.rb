@@ -13,7 +13,7 @@ Hanami::Model.migration do
       column :speed, Integer, null: false
       column :direction, Integer, null: false
       column :destination, String, null: false
-      column :isDelay, 'boolean', null: false
+      column :isdelay, 'boolean', null: false
 
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false

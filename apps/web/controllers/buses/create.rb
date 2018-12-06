@@ -1,3 +1,7 @@
+require 'net/http'
+require 'uri'
+require 'json'
+
 module Web
   module Controllers
     module Buses
@@ -5,12 +9,9 @@ module Web
         include Web::Action
 
         def call(params)
-          BusRepository.new.create({ isRunning: true, datetime: '123', busid: 1, rosenid: 2, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false })
-          #bus = Bus.new
           #For num in 1..11
-          params = URI.encode_www_form({busid: '3'})
+          params = URI.encode_www_form({busid: '1'})
           uri = URI.parse("http://tutujibus.com/busLookup.php?#{params}")
-          #@query = uri.query
 
           response = Net::HTTP.start(uri.host, uri.port) do |http|
             http.open_timeout = 5
@@ -21,12 +22,8 @@ module Web
             case response
             when Net::HTTPSuccess
               @result = JSON.parse(response.body.split('(')[1].sub(')',''))#.gsub(/(\w+):/, '"\1":'))
-              bi = @result["busid"]
-              #bus.new(@result)
-              #bus.save
-              #BusRepository.new.create(@result)
-              BusRepository.new.create({ isRunning: true, datetime: '123', busid: 1, rosenid: 2, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false })
-              #BusRepository.new.create({ id: 1, isRunning: true, datetime: '123', busid: 1, rosenid: 2, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false })
+              #BusRepository.new.create({ isRunning: true, datetime: '123', busid: 1, rosenid: 2, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isdelay: false })
+              BusRepository.new.create({ isRunning: @result["isRunning"], datetime: @result["datetime"], busid: @result["busid"], rosenid: @result["rosenid"], binid: @result["binid"], latitude: @result["latitude"], longitude: @result["longitude"], speed: @result["speed"], direction: @result["direction"], destination: @result["destination"], isdelay: @result["isdelay"]})
               redirect_to '/buses'
             when Net::HTTPRedirection
               @message = "Redirection: code=#{response.code} message=#{response.message}"

@@ -5,8 +5,8 @@ RSpec.describe 'List buses' do
   before do
     repository.clear
 
-    repository.create({ isRunning: true, datetime: '123', busid: 1, rosenid: 2, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false })
-    repository.create({ isRunning: true, datetime: '123', busid: 2, rosenid: 3333, binid: 23, latitude: 4.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isDelay: false })
+    repository.create({ isRunning: true, datetime: '123', busid: 1, rosenid: 2, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isdelay: false })
+    repository.create({ isRunning: true, datetime: '123', busid: 2, rosenid: 3333, binid: 23, latitude: 4.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isdelay: false })
   end
 
   it 'displays each bus info on the page' do

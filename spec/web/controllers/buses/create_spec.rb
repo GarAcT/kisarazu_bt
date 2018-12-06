@@ -3,7 +3,11 @@ RSpec.describe Web::Controllers::Buses::Create do
   let(:repository) { BusRepository.new }
   let(:params) {Hash[]}
 
-  it 'create buses' do
+  before do
+    repository.clear
+  end
+
+  it 'create new buses' do
     action.call(params)
     bus = repository.last
 
