@@ -6,8 +6,8 @@ RSpec.describe 'Create buses' do
   end
 
   it 'can create buses' do
-    visit '/buses/create'
+    visit '/buses/fetch'
 
-    #expect(page).to have_current_path('/buses')
+    expect(page).to have_current_path('/buses')
   end
 end

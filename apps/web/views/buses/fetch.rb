@@ -1,7 +1,7 @@
 module Web
   module Views
     module Buses
-      class Create
+      class Fetch
         include Web::View
       end
     end

@@ -1,8 +1,8 @@
-require_relative '../../../../apps/web/controllers/buses/create'
+require_relative '../../../../apps/web/controllers/buses/fetch'
 
-RSpec.describe Web::Views::Buses::Create do
+RSpec.describe Web::Views::Buses::Fetch do
   let(:exposures) { Hash[format: :html] }
-  let(:template)  { Hanami::View::Template.new('apps/web/templates/buses/create.html.erb') }
+  let(:template)  { Hanami::View::Template.new('apps/web/templates/buses/fetch.html.erb') }
   let(:view)      { described_class.new(template, exposures) }
   let(:rendered)  { view.render }
 

@@ -5,12 +5,12 @@ require 'json'
 module Web
   module Controllers
     module Buses
-      class Create
+      class Fetch
         include Web::Action
 
         def call(params)
           #For num in 1..11
-          params = URI.encode_www_form({busid: '1'})
+          params = URI.encode_www_form({busid: '3'})
           uri = URI.parse("http://tutujibus.com/busLookup.php?#{params}")
 
           response = Net::HTTP.start(uri.host, uri.port) do |http|
