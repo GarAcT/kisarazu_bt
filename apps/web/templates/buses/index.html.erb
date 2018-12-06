@@ -4,10 +4,7 @@
   <div id="buses">
     <% buses.each do |bus| %>
       <div class="bus">
-        <h2><%= bus.busid %></h2>
-        <p><%= bus.rosenid %></p>
-        <p><%= bus.binid %></p>
-        <p><%= bus.isRunning %></p>
+        <p> <h2>busid:<%= bus.busid %></h2> isRunning:<%= bus.isRunning %> datetime:<%= bus.datetime %> rosenid:<%= bus.rosenid %> binid:<%= bus.binid %> latitude:<%= bus.latitude %> longitude:<%= bus.longitude %> speed:<%= bus.speed %> direction:<%= bus.direction %> isdelay:<%= bus.isdelay%> </p>
       </div>
     <% end %>
   </div>
