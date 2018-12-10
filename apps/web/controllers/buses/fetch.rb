@@ -8,29 +8,35 @@ module Web
       class Fetch
         include Web::Action
 
+        expose :resp
         expose :message
 
         def call(params)
           BusRepository.new.clear
           rosenNum = 11
+          @resp= []
           for num in 1..rosenNum
             params = URI.encode_www_form({busid: num})
             uri = URI.parse("http://tutujibus.com/busLookup.php?#{params}")
 
-            response = Net::HTTP.start(uri.host, uri.port) do |http|
+            res = Net::HTTP.start(uri.host, uri.port) do |http|
               http.open_timeout = 5
               http.read_timeout = 10
               http.get(uri.request_uri)
             end
+
+            @resp << res
+
             begin
-              case response
+              case @resp.last
               when Net::HTTPSuccess #2xx
-                @result = JSON.parse(response.body.split('(')[1].sub(')',''))#.gsub(/(\w+):/, '"\1":'))
+                @result = JSON.parse(@resp.last.body.split('(')[1].sub(')',''))#.gsub(/(\w+):/, '"\1":'))
                 #BusRepository.new.create({ isRunning: true, datetime: '123', busid: 1, rosenid: 2, binid: 3, latitude: 1.1, longitude: 2.3, speed: 3, direction:3, destination: 'aaa', isdelay: false })
                 if !@result.empty? and @result["isRunning"]
                   BusRepository.new.create({ isRunning: @result["isRunning"], datetime: @result["datetime"], busid: @result["busid"], rosenid: @result["rosenid"], binid: @result["binid"], latitude: @result["latitude"], longitude: @result["longitude"], speed: @result["speed"], direction: @result["direction"], destination: @result["destination"], isdelay: @result["isdelay"]})
                   @message = "fetched"
                 end
+                redirect_to '/buses'
               when Net::HTTPRedirection #3xx
                 @message = "Redirection: code=#{response.code} message=#{response.message}"
               else
@@ -49,7 +55,6 @@ module Web
             end
           end
 
-          redirect_to '/buses'
         end
       end
     end
