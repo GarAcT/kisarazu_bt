@@ -38,9 +38,9 @@ module Web
                 end
                 redirect_to '/buses'
               when Net::HTTPRedirection #3xx
-                @message = "Redirection: code=#{response.code} message=#{response.message}"
+                @message = "Redirection: code=#{@resp.code} message=#{@resp.message}"
               else
-                @message = "HTTP ERROR: code=#{response.code} message=#{response.message}"
+                @message = "HTTP ERROR: code=#{@resp.code} message=#{@resp.message}"
               end
 
             #error handling
