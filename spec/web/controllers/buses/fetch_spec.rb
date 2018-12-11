@@ -9,7 +9,7 @@ RSpec.describe Web::Controllers::Buses::Fetch do
     repository.clear
   end
 
-  it 'succes http get' do
+  it 'succeeds in http get' do
     action.call(params)
     expect(action.exposures[:resp]).to all(be_a(Net::HTTPSuccess))
     be_ok = -> res { res.code == "200" }
