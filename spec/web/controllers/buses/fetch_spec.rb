@@ -19,7 +19,13 @@ RSpec.describe Web::Controllers::Buses::Fetch do
   it 'create bus info' do
     action.call(params)
     bus = repository.last
-    expect(bus.id).to_not be_nil
+    if action.exposures[:existsData]
+      expect(action.exposures[:existsData]).to be true
+      expect(bus.id).to_not be_nil
+    else
+      expect(action.exposures[:existsData]).to be false
+    end
+
   end
 
   it 'redirects the user to the bus info listing' do
