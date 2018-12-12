@@ -12,3 +12,10 @@
   <p class="placeholder">There are no bus info yet.</p>
 <% end %>
 
+<%=
+  form_for :bus, routes.fetch_buses_path, method: :get do
+    div class: 'controls' do
+      button 'Fetch'
+    end
+  end
+%>
