@@ -8,9 +8,7 @@ RSpec.describe 'Create buses' do
   it 'can create buses' do
     visit '/buses'
 
-    within 'form#bus-form' do
-      click_button 'Fetch'
-    end
+    click_on 'Fetch'
 
     expect(page).to have_current_path('/buses')
   end

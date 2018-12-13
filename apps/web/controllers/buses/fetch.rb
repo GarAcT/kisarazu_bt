@@ -37,9 +37,11 @@ module Web
                 if !@result.empty? and @result["isRunning"]
                   @existsData = true
                   BusRepository.new.create({ isRunning: @result["isRunning"], datetime: @result["datetime"], busid: @result["busid"], rosenid: @result["rosenid"], binid: @result["binid"], latitude: @result["latitude"], longitude: @result["longitude"], speed: @result["speed"], direction: @result["direction"], destination: @result["destination"], isdelay: @result["isdelay"]})
-                  @message = "fetched"
+                  @message = @result
                 end
-                redirect_to '/buses'
+                if num == 11
+                  redirect_to '/buses'
+                end
               when Net::HTTPRedirection #3xx
                 @message = "Redirection: code=#{@resp.code} message=#{@resp.message}"
               else

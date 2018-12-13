@@ -1,5 +1,7 @@
 <h2>All bus info</h2>
 
+<%= link_to 'Fetch' , routes.fetch_buses_path, class: 'btn' %>
+
 <% if buses.any? %>
   <div id="buses">
     <% buses.each do |bus| %>
@@ -12,10 +14,3 @@
   <p class="placeholder">There are no bus info yet.</p>
 <% end %>
 
-<%=
-  form_for :bus, routes.fetch_buses_path, method: :get do
-    div class: 'controls' do
-      button 'Fetch'
-    end
-  end
-%>

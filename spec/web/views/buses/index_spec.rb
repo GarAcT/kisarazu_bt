@@ -1,7 +1,7 @@
 RSpec.describe Web::Views::Buses::Index, type: :view do
   let(:exposures) { Hash[buses: []] }
   let(:template)  { Hanami::View::Template.new('apps/web/templates/buses/index.html.erb') }
-  let(:view)      { Web::Views::Buses::Index.new(template, exposures) }
+  let(:view)      { described_class.new(template, exposures) }
   let(:rendered)  { view.render }
 
   it 'exposes #buses' do
@@ -21,8 +21,7 @@ RSpec.describe Web::Views::Buses::Index, type: :view do
 
     it 'lists them all' do
       expect(rendered.scan(/class="bus"/).length).to eq(2)
-      expect(rendered).to include('2345')
-      expect(rendered).to include('6789')
+      expect(rendered).to include('2345') & include('6789')
     end
 
     it 'hides the placeholder message' do
