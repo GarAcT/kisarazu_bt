@@ -1,0 +1,16 @@
+<h2>All bus info</h2>
+
+<%= link_to 'Fetch' , routes.fetch_buses_path, class: 'btn' %>
+
+<% if buses.any? %>
+  <div id="buses">
+    <% buses.each do |bus| %>
+      <div class="bus">
+        <p> <h2>busid:<%= bus.busid %></h2> isRunning:<%= bus.isRunning %> datetime:<%= bus.datetime %> rosenid:<%= bus.rosenid %> binid:<%= bus.binid %> latitude:<%= bus.latitude %> longitude:<%= bus.longitude %> speed:<%= bus.speed %> direction:<%= bus.direction %> isdelay:<%= bus.isdelay%> </p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="placeholder">There are no bus info yet.</p>
+<% end %>
+
