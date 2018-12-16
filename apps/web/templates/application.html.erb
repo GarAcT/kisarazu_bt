@@ -3,8 +3,15 @@
   <head>
     <title>Web</title>
     <%= favicon %>
+    <%= stylesheet 'style' %>
   </head>
   <body>
     <%= yield %>
+
+    <%= javascript "https://maps.googleapis.com/maps/api/js?key=#{ENV['GMAPS_API_KEY']}" %>
+
+    <%= javascript 'https://code.jquery.com/jquery-3.3.1.min.js', integrity: 'sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' %>
+
+    <%= javascript 'map', 'app' %>
   </body>
 </html>
