@@ -1,15 +1,55 @@
-<h2>All bus info</h2>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">Bus info</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
 
-<%= link_to 'Fetch' , routes.fetch_buses_path, class: 'btn' %>
+<main role="main" class="container">
+<div class="jumbotron">
+  <h1>All bus info</h1>
+  <p class="lead">This is list of Sabae city bus info.</p>
+  <%= link_to 'Update' , routes.fetch_buses_path, class: "btn btn-primary" %>
+</div>
+</main>
 
 <% if buses.any? %>
-  <div id="buses">
-    <% buses.each do |bus| %>
-      <div class="bus">
-        <p> <h2>busid:<%= bus.busid %></h2> isRunning:<%= bus.isRunning %> datetime:<%= bus.datetime %> rosenid:<%= bus.rosenid %> binid:<%= bus.binid %> latitude:<%= bus.latitude %> longitude:<%= bus.longitude %> speed:<%= bus.speed %> direction:<%= bus.direction %> isdelay:<%= bus.isdelay%> </p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>isRunning</th>
+        <th>datetime</th>
+        <th>rosenid</th>
+        <th>binid</th>
+        <th>latitude</th>
+        <th>longitude</th>
+        <th>speed</th>
+        <th>direction</th>
+        <th>isdelay</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div id="buses">
+        <% buses.each do |bus| %>
+          <tr>
+            <div class="bus">
+              <td><%= bus.busid %></td>
+              <td><%= bus.isRunning%></td>
+              <td><%= bus.datetime %></td>
+              <td><%= bus.rosenid%></td>
+              <td><%= bus.binid%></td>
+              <td><%= bus.latitude%></td>
+              <td><%= bus.longitude%></td>
+              <td><%= bus.speed%></td>
+              <td><%= bus.direction%></td>
+              <td><%= bus.isdelay%></td>
+            </div>
+          </tr>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+    </tbody>
+  </table>
 <% else %>
   <p class="placeholder">There are no bus info yet.</p>
 <% end %>
