@@ -238,7 +238,7 @@ module Web
         frame-ancestors 'self';
         base-uri 'self';
         default-src 'none';
-        script-src 'self' https://maps.googleapis.com https://code.jquery.com http://tutujibus.com;
+        script-src 'self' https://maps.googleapis.com https://code.jquery.com https://cdnjs.cloudflare.com https://stackpath.bootstrapcdn.com http://tutujibus.com;
         connect-src 'self';
         img-src 'self' https: data: http://tutujibus.com;
         style-src 'self' 'unsafe-inline' https:;
