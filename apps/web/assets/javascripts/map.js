@@ -1,4 +1,6 @@
 var map;
+
+const ROSEN_NUM = 11;
 var busMarker = [];
 var busStopMarker = [];
 var busInfoWindow = [];
@@ -6,6 +8,7 @@ var busStopInfoWindow = [];
 
 function renderMap(){
   map = new google.maps.Map(document.getElementById("map"), { zoom: 12, center: new google.maps.LatLng(35.959143, 136.218218) });
+  initMarker();
   setBusStopMarker();
   (async () => {
     while(true){
@@ -13,6 +16,13 @@ function renderMap(){
       await sleepMS(5000);
     }
   })().catch((error) => {console.log(error)});
+}
+
+function initMarker(){
+  for(let i=1;i<=ROSEN_NUM;i++){
+    busMarker[i]=[];
+    busInfoWindow[i]=[];
+  }
 }
 
 function sleepMS(s){
@@ -52,16 +62,18 @@ function getJSONP(requests, clallback){
 
 function setBusMarker(){
   var requests = [];
-  for(let i=0,maxBusNum = 11;i<maxBusNum;i++){
+  for(let i=0;i<ROSEN_NUM;i++){
     requests[i] = {url: 'http://tutujibus.com/busLookup.php', params: { busid: i+1 } };
   }
 
   getJSONP(requests, function(results){
     $.each(results,function(i,data){
-      if(data['isRunning']){
+      if(true){//data['isRunning']){
         posLatLng = new google.maps.LatLng(data['latitude'], data['longitude']);
-        if(!busMarker[i]){
-          busMarker[i] = new google.maps.Marker({
+        bm = busMarker[data['rosenid']][data['binid']];
+        bi = busInfoWindow[data['rosenid']][data['binid']];
+        if(!bm){
+          bm = new google.maps.Marker({
             position: posLatLng,
             map: map,
             /*icon: {
@@ -69,13 +81,13 @@ function setBusMarker(){
               scaledSize: new google.maps.Size(48,48),
             }*/
           });
-          busInfoWindow[i] = new google.maps.InfoWindow({
+          bi = new google.maps.InfoWindow({
             content: '<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>'
           });
-          MarkerEvent(busMarker[i],busInfoWindow[i]);
+          MarkerEvent(bm,bi);
         }else{
-          busMarker[i].setPosition(posLatLng);
-          busInfoWindow[i].setContent('<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>');
+          bm.setPosition(posLatLng);
+          bi.setContent('<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>');
         }
       }
     });
@@ -84,27 +96,30 @@ function setBusMarker(){
 
 function setBusStopMarker(){
   var requests = [];
-  for(let i=0,maxRosenNum = 11;i<maxRosenNum;i++){
+  for(let i=0;i<ROSEN_NUM;i++){
     requests[i] = {url: 'http://tutujibus.com/busstopLookup.php', params: { rosenid: i+1 } };
   }
 
-
   getJSONP(requests, function(results){
     $.each(results,function(i,data){
-      $.each(data['busstop'],function(i,busstop){
+      var rosenid = i+1;
+      busStopMarker[rosenid] = [];
+      busStopInfoWindow[rosenid] = [];
+      $.each(data['busstop'],function(j,busstop){
         posLatLng = new google.maps.LatLng(busstop['latitude'], busstop['longitude']);
-        busStopMarker[i] = new google.maps.Marker({
+        busStopMarker[rosenid].push(new google.maps.Marker({
           position: posLatLng,
           map: map,
           icon: {
             url: '/assets/busstop_icon.png',
             scaledSize: new google.maps.Size(32,32),
-          }
-        });
-        busStopInfoWindow[i] = new google.maps.InfoWindow({
+          },
+          visible:false,
+        }));
+        busStopInfoWindow[rosenid][j] = new google.maps.InfoWindow({
           content: '<div class="map">'+busstop['name']+ '</div>'
         });
-        MarkerEvent(busStopMarker[i], busStopInfoWindow[i]);
+        MarkerEvent(busStopMarker[rosenid][j], busStopInfoWindow[rosenid][j]);
       });
     });
   });
