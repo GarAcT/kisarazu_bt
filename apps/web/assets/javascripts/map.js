@@ -63,8 +63,11 @@ function setBusMarker(){
         if(!busMarker[i]){
           busMarker[i] = new google.maps.Marker({
             position: posLatLng,
-            map: map
-              //icon: 'http://tutujibus.com/image/bus/'+data['busid']+'/'+data['busid']+'_1.png'
+            map: map,
+            /*icon: {
+              url: '/assets/bus_icon.png',
+              scaledSize: new google.maps.Size(48,48),
+            }*/
           });
           busInfoWindow[i] = new google.maps.InfoWindow({
             content: '<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>'
@@ -93,7 +96,10 @@ function setBusStopMarker(){
         busStopMarker[i] = new google.maps.Marker({
           position: posLatLng,
           map: map,
-          icon: 'http://tutujibus.com/image/busstop32.png'
+          icon: {
+            url: '/assets/busstop_icon.png',
+            scaledSize: new google.maps.Size(32,32),
+          }
         });
         busStopInfoWindow[i] = new google.maps.InfoWindow({
           content: '<div class="map">'+busstop['name']+ '</div>'
