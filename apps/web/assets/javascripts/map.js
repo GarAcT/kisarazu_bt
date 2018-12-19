@@ -108,16 +108,14 @@ function searchRosen(busStopName){
       }
     });
   });
+  if(rosenid.length==0) alert('Not Found');
   return rosenid;
 }
 
 function searchPosition(latlng){
-  console.dir(latlng);
-
   var rosenid = 1;
   var minidx = 1;
   var min = google.maps.geometry.spherical.computeDistanceBetween(busStopMarker[1][1].getPosition(),latlng);
-  console.dir(min);
 
   $.each(busStopMarker,function(i,bsms){
     $.each(bsms,function(j,bsm){
@@ -181,7 +179,7 @@ function setBusMarker(){
               }*/
           });
           busInfoWindow[data['rosenid']][data['binid']]= new google.maps.InfoWindow({
-            content: '<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>'
+            content: '<div class="map">' +'第'+data['binid' ]+'便 '+data['destination']+ '行き</div>'
           });
           MarkerEvent(busMarker[data['rosenid']][data['binid']],busInfoWindow[data['rosenid']][data['binid']]);
           busIdx.push(new BusIdx(data['rosenid'],data['binid']));
