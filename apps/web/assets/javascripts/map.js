@@ -59,6 +59,12 @@ function initButton(){
       showRosen(id);
     });
   });
+
+  document.getElementById('searchPositionButton').onclick=(function(){
+    invisibleAllMarker();
+    pos = searchPositionTextbox.value.split(",");
+    showRosen(searchPosition(new google.maps.LatLng(pos[0],pos[1])));
+  });
 }
 
 function sleepMS(s){
@@ -92,7 +98,7 @@ function showRosen(rosenid){
 }
 
 function searchRosen(busStopName){
-  var rosenid = []
+  var rosenid = [];
   $.each(busStopInfoWindow,function(i,bsis){
     $.each(bsis,function(j,bsi){
       if(~bsi.getContent().indexOf(busStopName)){
@@ -101,6 +107,29 @@ function searchRosen(busStopName){
       }
     });
   });
+  return rosenid;
+}
+
+function searchPosition(latlng){
+  console.dir(latlng);
+
+  var rosenid = 1;
+  var minidx = 1;
+  var min = google.maps.geometry.spherical.computeDistanceBetween(busStopMarker[1][1].getPosition(),latlng);
+  console.dir(min);
+
+  $.each(busStopMarker,function(i,bsms){
+    $.each(bsms,function(j,bsm){
+      var distance = google.maps.geometry.spherical.computeDistanceBetween(bsm.getPosition(),latlng);
+      if(min > distance){
+        rosenid = i;
+        minidx = j;
+        min = distance;
+      }
+    });
+  });
+
+  busStopInfoWindow[rosenid][minidx].open(map,busStopMarker[rosenid][minidx]);
   return rosenid;
 }
 
