@@ -1,15 +1,36 @@
-<p>
-<button type="button" class="btn btn-primary" id='rosenid:All' >rosenAll</button>
-<% 1.upto(11) do |i| %>
-  <button type="button" class="btn btn-secondary" id='rosenid:<%= i %>' >rosenid<%= i %></button>
-<% end %>
-</p>
-<p>
-input busstop name<input type="text" id="searchBusStopTextbox">
-<button type="button" class="btn btn-primary" id='searchBusStopButton' >search</button>
-</p>
-<p>
-input position<input type="text" id="searchPositionTextbox">
-<button type="button" class="btn btn-primary" id='searchPositionButton' >search</button>
-</p>
 <div id="map"></div>
+
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 column">
+        <h2>Kisarazu City Bus Tracker</h2>
+      </div>
+      <div class="col-md-6 column">
+        <form class="form-inline mt-2 mt-md-0 right">
+          <input class="form-control mr-sm-2" type="text" placeholder="バス停" aria-label="Search" id="searchBusStopTextbox">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchBusStopButton">検索</button>
+          <input class="form-control mr-sm-2" type="text" placeholder="座標(緯度,経度)" aria-label="Search", id="searchPositionTextbox">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchPositionButton">検索</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <ul class="nav nav-pills flex-column sidemenu">
+    <li class="nav-item"><a href="#" class="nav-link active", id="rosenid:All">全車両表示</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:1">循環線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:2">幹線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:3">鯖江南・新横江線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:4">神明線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:5">片上・北中山線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:6">立待線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:7">吉川線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:8">豊線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:9">中河・北中山線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:10">河和台線</a></li>
+    <li class="nav-item"><a href="#" class="nav-link" id="rosenid:11">通学便<br>市内高校ルート</a></li>
+  </ul>
+</div>
