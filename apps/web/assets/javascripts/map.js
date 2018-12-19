@@ -9,6 +9,7 @@ var busStopInfoWindow = [];
 function renderMap(){
   map = new google.maps.Map(document.getElementById("map"), { zoom: 12, center: new google.maps.LatLng(35.959143, 136.218218) });
   initMarker();
+  initButton();
   setBusStopMarker();
   (async () => {
     while(true){
@@ -17,18 +18,37 @@ function renderMap(){
     }
   })().catch((error) => {console.log(error)});
 
-  for(let id=1;id<=ROSEN_NUM;id++){
-    document.getElementById('rosenid:'+id).onclick=(function(){
-      showRosen(id);
-    });
-  }
-
 }
 
 function initMarker(){
   for(let i=0;i<=ROSEN_NUM;i++){
     busMarker[i]=[];
     busInfoWindow[i]=[];
+  }
+}
+
+function initButton(){
+  document.getElementById('rosenid:All').onclick=(function(){
+    console.dir("all");
+    $.each(busMarker,function(i,bms){
+      if(bms.length > 0){
+        $.each(bms,function(j,bm){
+          if(bm) bm.setVisible(true);
+        });
+      }
+    });
+
+    $.each(busStopMarker,function(i,bsms){
+      $.each(bsms,function(j,bsm){
+        bsm.setVisible(false);
+      });
+    });
+  });
+
+  for(let id=1;id<=ROSEN_NUM;id++){
+    document.getElementById('rosenid:'+id).onclick=(function(){
+      showRosen(id);
+    });
   }
 }
 
