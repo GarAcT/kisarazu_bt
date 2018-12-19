@@ -8,7 +8,7 @@ var busInfoWindow = [];
 var busStopInfoWindow = [];
 var busIdx = [];
 
-function BusIdx(marker,infoWindow,rosenid,binid){
+function BusIdx(rosenid,binid){
   this.rosenid = rosenid;
   this.binid = binid;
 }
@@ -36,7 +36,7 @@ function initMarker(){
 
 function initButton(){
   document.getElementById('rosenid:All').onclick=(function(){
-    $.each(BusIdx,function(i,bi){
+    $.each(busIdx,function(i,bi){
       busMarker[bi.rosenid][bi.binid].setVisible(true);
     });
 
@@ -77,7 +77,7 @@ function sleepMS(s){
 }
 
 function invisibleAllMarker(){
-  $.each(BusIdx,function(i,bi){
+  $.each(busIdx,function(i,bi){
     busMarker[bi.rosenid][bi.binid].setVisible(false);
   });
 
@@ -185,7 +185,7 @@ function setBusMarker(){
           busIdx.push(new BusIdx(data['rosenid'],data['binid']));
         }else{
           busMarker[data['rosenid']][data['binid']].setPosition(posLatLng);
-          busInfoWindow[data['rosenid']][data['binid']].setContent('<div class="map">'+'binid:'+data['binid' ]+' '+data['destination']+ '</div>');
+          busInfoWindow[data['rosenid']][data['binid']].setContent('<div class="map">'+'第'+data['binid' ]+'便 '+data['destination']+'行き</div>');
         }
       }
     });
