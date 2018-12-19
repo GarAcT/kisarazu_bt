@@ -8,13 +8,13 @@ var busInfoWindow = [];
 var busStopInfoWindow = [];
 var busIdx = [];
 
-function BusIdx(marker,infoWindow,rosenid,binid){
+function BusIdx(rosenid,binid){
   this.rosenid = rosenid;
   this.binid = binid;
 }
 
 function renderMap(){
-  map = new google.maps.Map(document.getElementById("map"), { zoom: 12, center: new google.maps.LatLng(35.959143, 136.218218) });
+  map = new google.maps.Map(document.getElementById("map"), { zoom: 13, center: new google.maps.LatLng(35.959143, 136.218218) });
   initMarker();
   initButton();
   setBusStopMarker();
@@ -36,13 +36,14 @@ function initMarker(){
 
 function initButton(){
   document.getElementById('rosenid:All').onclick=(function(){
-    $.each(BusIdx,function(i,bi){
+    $.each(busIdx,function(i,bi){
       busMarker[bi.rosenid][bi.binid].setVisible(true);
     });
 
     $.each(busStopMarker,function(i,bsms){
       $.each(bsms,function(j,bsm){
         bsm.setVisible(false);
+        busStopInfoWindow[i][j].close();
       });
     });
   });
@@ -77,13 +78,15 @@ function sleepMS(s){
 }
 
 function invisibleAllMarker(){
-  $.each(BusIdx,function(i,bi){
+  $.each(busIdx,function(i,bi){
     busMarker[bi.rosenid][bi.binid].setVisible(false);
+    busInfoWindow[bi.rosenid][bi.binid].close();
   });
 
   $.each(busStopMarker,function(i,bsms){
     $.each(bsms,function(j,bsm){
       bsm.setVisible(false);
+      busStopInfoWindow[i][j].close();
     });
   });
 }
@@ -185,7 +188,7 @@ function setBusMarker(){
           busIdx.push(new BusIdx(data['rosenid'],data['binid']));
         }else{
           busMarker[data['rosenid']][data['binid']].setPosition(posLatLng);
-          busInfoWindow[data['rosenid']][data['binid']].setContent('<div class="map">'+'binid:'+data['binid' ]+' '+data['destination']+ '</div>');
+          busInfoWindow[data['rosenid']][data['binid']].setContent('<div class="map">'+'第'+data['binid' ]+'便 '+data['destination']+'行き</div>');
         }
       }
     });
