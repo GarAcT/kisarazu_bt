@@ -1,9 +1,58 @@
+html, body {
+  height: 100%;
+}
+
+h2 {
+  font-weight: bold;
+  color: white;
+  margin: 0;
+}
+
+li+ li {
+  border-top: 1px solid #343a40;
+}
+
 #map {
   height: 100%;
 }
 
-html, body {
-  height: 100%;
+.header {
+  background-color: #343a40;
+  position:absolute;
+  top: 0;
+  left: 0;
+  padding: 7px;
+  width: 100%;
+}
+
+.header .container {
+  max-width: 100%;
   margin: 0;
+}
+
+.column {
   padding: 0;
+}
+
+.right {
+  display: inline-block;
+  float: right;
+}
+
+.sidemenu {
+  position:absolute;
+  top: 51.99px;
+  left: 0px;
+  padding: 0;
+  display: inline-block;
+  border-right: 2px solid #343a40;
+  border-bottom: 2px solid #343a40;
+}
+
+.nav-item {
+  background-color: rgb(255, 255, 255);
+}
+
+.nav-pills .nav-link {
+  border-radius: 0;
 }

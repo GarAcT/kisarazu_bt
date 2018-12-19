@@ -7,12 +7,47 @@
     <%= stylesheet 'style' %>
   </head>
   <body>
-    <%= yield %>
-
-    <%= javascript "https://maps.googleapis.com/maps/api/js?key=#{ENV['GMAPS_API_KEY']}" %>
-    <%= javascript 'https://code.jquery.com/jquery-3.3.1.min.js', integrity: 'sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' %>
-    <%= javascript 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity: 'sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' %>
-    <%= javascript 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity: 'sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' %>
-    <%= javascript 'map', 'app' %>
+    <div id="map">
+      <%= yield %>
+      <%= javascript "https://maps.googleapis.com/maps/api/js?key=#{ENV['GMAPS_API_KEY']}" %>
+      <%= javascript 'https://code.jquery.com/jquery-3.3.1.min.js', integrity: 'sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' %>
+      <%= javascript 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity: 'sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' %>
+      <%= javascript 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity: 'sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' %>
+      <%= javascript 'map', 'app' %>
+    </div>
+    
+    <div class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 column">
+            <h2>Kisarazu City Bus Tracker</h2>
+          </div>
+          <div class="col-md-6 column">
+            <form class="form-inline mt-2 mt-md-0 right">
+              <input class="form-control mr-sm-2" type="text" placeholder="バス停" aria-label="Search">
+              <input class="form-control mr-sm-2" type="text" placeholder="座標(緯度,経度)" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+            </form>
+          </div>
+        </div>
+      </div>  
+    </div>
+      
+    <div>
+      <ul class="nav nav-pills flex-column sidemenu">
+        <li class="nav-item"><a href="" class="nav-link active">全車両表示</a></li>
+        <li class="nav-item"><a href="" class="nav-link">循環線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">幹線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">鯖江南・新横江線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">神明線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">片上・北中山線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">立待線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">吉川線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">豊線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">中河・北中山線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">河和台線</a></li>
+        <li class="nav-item"><a href="" class="nav-link">通学便<br>市内高校ルート</a></li>
+      </ul>
+    </div>
   </body>
 </html>
