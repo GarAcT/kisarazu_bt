@@ -1,6 +1,7 @@
 var map;
 
 const ROSEN_NUM = 17;
+const BUTTON_NUM = 11;
 var busMarker = [];
 var busStopMarker = [];
 var busInfoWindow = [];
@@ -46,7 +47,7 @@ function initButton(){
     });
   });
 
-  for(let id=1;id<=11;id++){
+  for(let id=1;id<=BUTTON_NUM;id++){
     document.getElementById('rosenid:'+id).onclick=(function(){
       invisibleAllMarker();
       showRosen(id);
