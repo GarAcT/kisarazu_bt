@@ -16,10 +16,17 @@ function renderMap(){
       await sleepMS(5000);
     }
   })().catch((error) => {console.log(error)});
+
+  for(let id=1;id<=ROSEN_NUM;id++){
+    document.getElementById('rosenid:'+id).onclick=(function(){
+      showRosen(id);
+    });
+  }
+
 }
 
 function initMarker(){
-  for(let i=1;i<=ROSEN_NUM;i++){
+  for(let i=0;i<=ROSEN_NUM;i++){
     busMarker[i]=[];
     busInfoWindow[i]=[];
   }
@@ -31,6 +38,23 @@ function sleepMS(s){
       resolve()
     }, s)
   })
+}
+
+function showRosen(rosenid){
+  console.dir(rosenid);
+  $.each(busMarker,function(i,bms){
+    if(bms.length > 0){
+      $.each(bms,function(j,bm){
+        if(bm) bm.setVisible(i==rosenid);
+      });
+    }
+  });
+
+  $.each(busStopMarker,function(i,bsms){
+    $.each(bsms,function(j,bsm){
+      bsm.setVisible(i==rosenid);
+    });
+  });
 }
 
 function getJSONP(requests, clallback){
@@ -68,26 +92,24 @@ function setBusMarker(){
 
   getJSONP(requests, function(results){
     $.each(results,function(i,data){
-      if(true){//data['isRunning']){
+      if(data['isRunning']){
         posLatLng = new google.maps.LatLng(data['latitude'], data['longitude']);
-        bm = busMarker[data['rosenid']][data['binid']];
-        bi = busInfoWindow[data['rosenid']][data['binid']];
-        if(!bm){
-          bm = new google.maps.Marker({
+        if(!busMarker[data['rosenid']][data['binid']]){
+          busMarker[data['rosenid']][data['binid']] = new google.maps.Marker({
             position: posLatLng,
             map: map,
             /*icon: {
               url: '/assets/bus_icon.png',
               scaledSize: new google.maps.Size(48,48),
-            }*/
+              }*/
           });
-          bi = new google.maps.InfoWindow({
+          busInfoWindow[data['rosenid']][data['binid']]= new google.maps.InfoWindow({
             content: '<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>'
           });
-          MarkerEvent(bm,bi);
+          MarkerEvent(busMarker[data['rosenid']][data['binid']],busInfoWindow[data['rosenid']][data['binid']]);
         }else{
-          bm.setPosition(posLatLng);
-          bi.setContent('<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>');
+          busMarker[data['rosenid']][data['binid']].setPosition(posLatLng);
+          busInfoWindow[data['rosenid']][data['binid']].setContent('<div class="map">'+'binid:'+data['binid' ]+' '+data['destination']+ '</div>');
         }
       }
     });
