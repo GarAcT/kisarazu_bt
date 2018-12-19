@@ -95,7 +95,7 @@ function searchRosen(busStopName){
   var rosenid = []
   $.each(busStopInfoWindow,function(i,bsis){
     $.each(bsis,function(j,bsi){
-      if(bsi.getContent() == '<div class="map">'+busStopName+'</div>'){
+      if(~bsi.getContent().indexOf(busStopName)){
         bsi.open(map,busStopMarker[i][j]);
         rosenid.push(i);
       }
