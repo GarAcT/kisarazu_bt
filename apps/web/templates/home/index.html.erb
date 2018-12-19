@@ -1,1 +1,15 @@
+<p>
+<button type="button" class="btn btn-primary" id='rosenid:All' >rosenAll</button>
+<% 1.upto(11) do |i| %>
+  <button type="button" class="btn btn-secondary" id='rosenid:<%= i %>' >rosenid<%= i %></button>
+<% end %>
+</p>
+<p>
+input busstop name<input type="text" id="searchBusStopTextbox">
+<button type="button" class="btn btn-primary" id='searchBusStopButton' >search</button>
+</p>
+<p>
+input position<input type="text" id="searchPositionTextbox">
+<button type="button" class="btn btn-primary" id='searchPositionButton' >search</button>
+</p>
 <div id="map"></div>
