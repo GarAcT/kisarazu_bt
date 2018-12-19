@@ -36,7 +36,7 @@ function initMarker(){
 function initButton(){
   document.getElementById('rosenid:All').onclick=(function(){
     $.each(BusIdx,function(i,bi){
-      busMarker[bi.rosenid][bi.binid].setVisible(bi.rosenid==rosenid);
+      busMarker[bi.rosenid][bi.binid].setVisible(true);
     });
 
     $.each(busStopMarker,function(i,bsms){
@@ -48,9 +48,17 @@ function initButton(){
 
   for(let id=1;id<=11;id++){
     document.getElementById('rosenid:'+id).onclick=(function(){
+      invisibleAllMarker();
       showRosen(id);
     });
   }
+
+  document.getElementById('searchBusStopButton').onclick=(function(){
+    invisibleAllMarker();
+    $.each(searchRosen(searchBusStopTextbox.value),function(i,id){
+      showRosen(id);
+    });
+  });
 }
 
 function sleepMS(s){
@@ -61,16 +69,39 @@ function sleepMS(s){
   })
 }
 
-function showRosen(rosenid){
+function invisibleAllMarker(){
   $.each(BusIdx,function(i,bi){
-    busMarker[bi.rosenid][bi.binid].setVisible(bi.rosenid==rosenid);
+    busMarker[bi.rosenid][bi.binid].setVisible(false);
   });
 
   $.each(busStopMarker,function(i,bsms){
     $.each(bsms,function(j,bsm){
-      bsm.setVisible(i==rosenid);
+      bsm.setVisible(false);
     });
   });
+}
+
+function showRosen(rosenid){
+  $.each(busMarker[rosenid],function(i,bm){
+    if(bm) bm.setVisible(true);
+  });
+
+  $.each(busStopMarker[rosenid],function(j,bsm){
+    bsm.setVisible(true);
+  });
+}
+
+function searchRosen(busStopName){
+  var rosenid = []
+  $.each(busStopInfoWindow,function(i,bsis){
+    $.each(bsis,function(j,bsi){
+      if(bsi.getContent() == '<div class="map">'+busStopName+'</div>'){
+        bsi.open(map,busStopMarker[i][j]);
+        rosenid.push(i);
+      }
+    });
+  });
+  return rosenid;
 }
 
 function getJSONP(requests, clallback){
