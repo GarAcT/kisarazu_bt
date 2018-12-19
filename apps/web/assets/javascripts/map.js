@@ -14,7 +14,7 @@ function BusIdx(rosenid,binid){
 }
 
 function renderMap(){
-  map = new google.maps.Map(document.getElementById("map"), { zoom: 12, center: new google.maps.LatLng(35.959143, 136.218218) });
+  map = new google.maps.Map(document.getElementById("map"), { zoom: 13, center: new google.maps.LatLng(35.959143, 136.218218) });
   initMarker();
   initButton();
   setBusStopMarker();
@@ -43,6 +43,7 @@ function initButton(){
     $.each(busStopMarker,function(i,bsms){
       $.each(bsms,function(j,bsm){
         bsm.setVisible(false);
+        busStopInfoWindow[i][j].close();
       });
     });
   });
@@ -79,11 +80,13 @@ function sleepMS(s){
 function invisibleAllMarker(){
   $.each(busIdx,function(i,bi){
     busMarker[bi.rosenid][bi.binid].setVisible(false);
+    busInfoWindow[bi.rosenid][bi.binid].close();
   });
 
   $.each(busStopMarker,function(i,bsms){
     $.each(bsms,function(j,bsm){
       bsm.setVisible(false);
+      busStopInfoWindow[i][j].close();
     });
   });
 }
