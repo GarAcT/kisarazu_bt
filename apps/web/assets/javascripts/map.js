@@ -1,10 +1,16 @@
 var map;
 
-const ROSEN_NUM = 11;
+const ROSEN_NUM = 17;
 var busMarker = [];
 var busStopMarker = [];
 var busInfoWindow = [];
 var busStopInfoWindow = [];
+var busIdx = [];
+
+function BusIdx(marker,infoWindow,rosenid,binid){
+  this.rosenid = rosenid;
+  this.binid = binid;
+}
 
 function renderMap(){
   map = new google.maps.Map(document.getElementById("map"), { zoom: 12, center: new google.maps.LatLng(35.959143, 136.218218) });
@@ -29,13 +35,8 @@ function initMarker(){
 
 function initButton(){
   document.getElementById('rosenid:All').onclick=(function(){
-    console.dir("all");
-    $.each(busMarker,function(i,bms){
-      if(bms.length > 0){
-        $.each(bms,function(j,bm){
-          if(bm) bm.setVisible(true);
-        });
-      }
+    $.each(BusIdx,function(i,bi){
+      busMarker[bi.rosenid][bi.binid].setVisible(bi.rosenid==rosenid);
     });
 
     $.each(busStopMarker,function(i,bsms){
@@ -45,7 +46,7 @@ function initButton(){
     });
   });
 
-  for(let id=1;id<=ROSEN_NUM;id++){
+  for(let id=1;id<=11;id++){
     document.getElementById('rosenid:'+id).onclick=(function(){
       showRosen(id);
     });
@@ -61,13 +62,8 @@ function sleepMS(s){
 }
 
 function showRosen(rosenid){
-  console.dir(rosenid);
-  $.each(busMarker,function(i,bms){
-    if(bms.length > 0){
-      $.each(bms,function(j,bm){
-        if(bm) bm.setVisible(i==rosenid);
-      });
-    }
+  $.each(BusIdx,function(i,bi){
+    busMarker[bi.rosenid][bi.binid].setVisible(bi.rosenid==rosenid);
   });
 
   $.each(busStopMarker,function(i,bsms){
@@ -127,6 +123,7 @@ function setBusMarker(){
             content: '<div class="map">' +'binid:'+data['binid' ]+' '+data['destination']+ '</div>'
           });
           MarkerEvent(busMarker[data['rosenid']][data['binid']],busInfoWindow[data['rosenid']][data['binid']]);
+          busIdx.push(new BusIdx(data['rosenid'],data['binid']));
         }else{
           busMarker[data['rosenid']][data['binid']].setPosition(posLatLng);
           busInfoWindow[data['rosenid']][data['binid']].setContent('<div class="map">'+'binid:'+data['binid' ]+' '+data['destination']+ '</div>');
